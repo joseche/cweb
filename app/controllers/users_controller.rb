@@ -37,7 +37,6 @@ class UsersController < ApplicationController
       redirect_to login_url,
           alert: 'Error activating account'
     end
-
   end
 
   private

@@ -19,4 +19,7 @@ Rails.application.routes.draw do
 
   get 'about',    to: 'about#index',      as: 'about'
 
+  get 'install',  to: 'install#index',    as: 'install'
+
+
 end

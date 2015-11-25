@@ -1,0 +1,9 @@
+<div class="panel panel-info">
+  <div class="panel-heading">Install a new agent</div>
+  <div class="panel-body">
+    <h5>For Linux(any distro), *BSD, OpenSolaris</h5>
+    <p>Run this command:</p>
+    <pre>\curl -sSL <%= root_url %>install/agent | TOKEN=<%= @api_token %> bash -s </pre>
+  </div>
+  <div class="panel-footer">© 2015 <%= Rails.configuration.x.clarity.site_name %>, Inc.</div>
+</div>
