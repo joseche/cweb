@@ -1,0 +1,11 @@
+<div class="panel panel-info">
+  <div class="panel-heading"><%= @fullname %></div>
+  <div class="panel-body">
+<!-- TODO: list all api tokens -->
+    <%= link_to "Dashboard", dashboard_path,
+                class: "btn btn-default" %>
+
+  </div>
+  <div class="panel-footer">© 2015 <%= Rails.configuration.x.clarity.site_name %>, Inc.</div>
+</div>
+

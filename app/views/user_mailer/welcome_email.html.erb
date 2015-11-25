@@ -1,0 +1,16 @@
+<h2>Welcome to <%= @site_name %></h2>
+<p>
+  You are receiving this email because someone registered your email<br/>
+  on our site: <%= link_to @site_name, root_url %>.<br/>
+</p>
+<p>
+  If you didn't register your email just ignore this message and we will soon delete<br/>
+  this request.
+</p>
+<p>
+  To activate your account, just follow this link: <%= link_to 'Activate', activate_user_url(@user, :key => @user.activation.key)  %>.
+</p>
+<p>
+  Once your account has been activated, use the API Key to configure agents in your infrastructure.
+</p>
+<p>Thanks for joining and have a great day!</p>

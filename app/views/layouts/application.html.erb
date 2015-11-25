@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= Rails.configuration.x.clarity.site_name %></title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="container"> <!-- nav menu -->
+<%= render 'shared/navigationbar' %>
+</div> <!-- nav menu -->
+
+<div class="container" id="notifications">
+  <% if notice %>
+      <div class="alert alert-success">
+        <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span> &nbsp;
+        <%= notice %>
+      </div> <!-- notice -->
+  <% end %>
+  <% if alert %>
+      <div class="alert alert-danger">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> &nbsp;
+        <%= alert %>
+      </div> <!-- alert -->
+  <% end %>
+</div> <!-- notifications -->
+
+<div class="container" id="mainbody">
+  <%= yield %>
+</div> <!-- mainbody -->
+
+</body>
+</html>
