@@ -15,12 +15,14 @@
 <div class="container" id="notifications">
   <% if notice %>
       <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
         <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span> &nbsp;
         <%= notice %>
       </div> <!-- notice -->
   <% end %>
   <% if alert %>
       <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> &nbsp;
         <%= alert %>
       </div> <!-- alert -->
