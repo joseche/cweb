@@ -29,8 +29,9 @@ class UsersController < ApplicationController
     activation_key = params[:key]
 
     if @user.activate(activation_key)
-      redirect_to login_url,
-          notice: 'Your account has been activated, you can now login'
+      session[:user_id] = @user.id
+      redirect_to dashboard_firsttime_path,
+          notice: 'Your account has been activated'
     else
       logger.info 'False attempt to activate user: ',@user.id, 'ip: ', request.ip
       redirect_to login_url,
