@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'dashboard',            to: 'dashboard#index',        as: 'dashboard'
   get 'dashboard/servers',    to: 'dashboard#servers',      as: 'dashboard_servers'
   get 'dashboard/tags',       to: 'dashboard#tags',         as: 'dashboard_tags'
+  get 'dashboard/firsttime',  to: 'dashboard#firsttime',    as: 'dashboard_firsttime'
 
   get 'about',    to: 'about#index',      as: 'about'
 
