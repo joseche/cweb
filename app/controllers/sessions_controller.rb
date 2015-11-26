@@ -15,8 +15,6 @@ class SessionsController < ApplicationController
         session[:return_to]=nil
         redirect_to return_to, notice: "Log in successful!"
       end
-
-
     else
       flash.now.alert = "Invalid email or password"
       render "new"

@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
+  # web routes
+  root 'home#index'
+
   resources :users
   resources :sessions
-
-  root 'home#index'
 
   get 'signup',   to: 'users#new',        as: 'signup'
   get 'login',    to: 'sessions#new',     as: 'login'
@@ -21,5 +22,7 @@ Rails.application.routes.draw do
 
   get 'install',  to: 'install#index',    as: 'install'
 
+  # api routes
+  post 'api',            to: 'api#index',        as: 'api'
 
 end

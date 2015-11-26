@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 6) do
+ActiveRecord::Schema.define(version: 8) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "api_token"
@@ -31,6 +31,26 @@ ActiveRecord::Schema.define(version: 6) do
   end
 
   add_index "activations", ["user_id"], name: "index_activations_on_user_id"
+
+  create_table "hosts", force: :cascade do |t|
+    t.string   "hostname"
+    t.string   "signature"
+    t.integer  "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "hosts", ["account_id"], name: "index_hosts_on_account_id"
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "tagname"
+    t.integer  "host_id"
+    t.boolean  "auto",       default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "tags", ["host_id"], name: "index_tags_on_host_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "fullname"
