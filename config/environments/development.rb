@@ -41,15 +41,15 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
 
-config.action_mailer.raise_delivery_errors = true
-config.action_mailer.delivery_method = :smtp
-config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-config.action_mailer.smtp_settings = {
-   address: '127.0.0.1',
-   port:  25
-}
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.smtp_settings = {
+      address: '127.0.0.1',
+      port:  25
+  }
+  config.action_mailer.asset_host = "http://localhost:3000"
 
-config.x.clarity.site_name = 'Clarity'
-
+  config.x.site_name = 'Clarity'
 
 end

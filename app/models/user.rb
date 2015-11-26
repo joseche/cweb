@@ -13,19 +13,19 @@ class User < ActiveRecord::Base
     @user = User.new(user_params)
     if @user.save
       redirect_to root_url,
-        notice: "Welcome back!"
+        notice: 'Welcome back!'
     else
-      render "new"
+      render 'new'
     end
   end
 
   def send_activation_email
     self.activation =  Activation.new
     begin
-      UserMailer.welcome_email(self).deliver_now
+      UserMailer.activation_email(self).deliver_now
     rescue
       logger.info "#{$!}"
-      UserMailer.welcome_email(self).deliver_later
+      UserMailer.activation_email(self).deliver_later
     end
   end
 
@@ -41,6 +41,8 @@ class User < ActiveRecord::Base
       self.account = Account.new
       self.account.name = self.email
       self.account.save
+
+      UserMailer.welcome_email(self).deliver_now
 
       return true
     else
