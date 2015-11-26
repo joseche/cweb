@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tagname: MyString
+  host_id: 
+  auto: false
+
+two:
+  tagname: MyString
+  host_id: 
+  auto: false
