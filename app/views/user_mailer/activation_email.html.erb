@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="panel panel-success">
+    <div class="panel-heading">Welcome to <%= @site_name %></div>
+    <div class="panel-body">
+      <p>
+        You are receiving this email because someone registered your email<br/>
+        on our site: <%= link_to @site_name, root_url %>.<br/>
+      </p>
+      <div class="well">
+        To activate your account, just follow this link: <%= link_to activate_user_url(@user, :key => @user.activation.key), activate_user_url(@user, :key => @user.activation.key)  %>.
+      </div>
+      <p>
+        If you didn't register your email just ignore this message and we will soon delete<br/>
+        this request.
+      </p>
+      <p>Thanks for joining and have a great day!</p>
+    </div>
+    <div class="panel-footer">&copy; 2015 <%= @site_name %></div>
+  </div>
+</div>
