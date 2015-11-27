@@ -1,4 +1,11 @@
+<!DOCTYPE html>
 <html>
+  <head>
+    <title><%= Rails.configuration.x.site_name %></title>
+    <meta charset="utf-8">
+    <meta content="text/html" http-equiv="Content-Type"/>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  </head>
   <body>
     <%= yield %>
   </body>
