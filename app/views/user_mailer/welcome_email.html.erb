@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="panel panel-success">
+    <div class="panel-heading">Welcome to <%= @site_name %></div>
+    <div class="panel-body">
+      <h3>Welcome to <%= link_to @site_name, root_url %></h3>
+      <p>This is your account token:</p>
+      <div class="well"><%= @account.api_token  %></div>
+      <p>
+        Start adding servers by .......<!-- TODO: agregar instrucciones -->
+      </p>
+      <p>Thanks for joining and have a great day!</p>
+    </div>
+    <div class="panel-footer">&copy; 2015 <%= @site_name %></div>
+  </div>
+</div>

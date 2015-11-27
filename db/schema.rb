@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 8) do
   create_table "hosts", force: :cascade do |t|
     t.string   "hostname"
     t.string   "signature"
+    t.string   "clientip"
+    t.string   "internalip"
     t.integer  "account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
