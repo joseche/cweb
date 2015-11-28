@@ -1,7 +1,7 @@
 class CreateHosts < ActiveRecord::Migration
   def change
     create_table :hosts do |t|
-      t.string :hostname
+      t.string :fqdn
       t.string :signature
       t.string :clientip
       t.string :internalip

@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
+      session[:account_id] = Account.find_by_user_id(user.id)
 
       # redirect_to dashboard_url, notice: "Log in successful!"
       if session[:return_to] == nil
@@ -23,6 +24,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
+    session[:account_id]= nil
     redirect_to root_url, notice: "Log out successful!"
   end
 end

@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
     else
       if token = request.env['HTTP_AUTHENTICATION']
         if @account = Account.find_by_api_token(token)
-          session[:user_id] = @account.user.id
+          session[:user_id]     = @account.user.id
+          session[:account_id]  = @account.id
           @current_user ||= User.find(session[:user_id])
         else
           return false
@@ -21,6 +22,14 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :current_user
+
+  def current_account
+    return unless current_user
+    if session[:account_id]
+      @current_account = Account.find(session[:account_id])
+    end
+  end
+  helper_method :current_account
 
   def login_required
     if current_user
