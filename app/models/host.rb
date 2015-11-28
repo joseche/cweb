@@ -3,4 +3,8 @@ class Host < ActiveRecord::Base
   has_many :tags
   validates :signature, presence: true, uniqueness: true
 
+  def collect(data)
+    logger.info data.to_s
+  end
+
 end

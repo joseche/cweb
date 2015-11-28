@@ -45,17 +45,17 @@ class ApiController < ApplicationController
     if host = Host.find_by_signature(params[:signature])
       if host.account == current_account
 
-        host.tags.destroy_all
+        host.tags.where(usercreated: false).destroy_all
         tags = params[:tags].split(/,/)
         tags.each do |t|
           host.tags.create(:tagname => t)
         end
-        render :json => :success
+        render :json => {result: 'success' }
       else
-        render :json => "Permission denied", :status => 403
+        render :json => {result: 'Permission denied'}, :status => 403
       end
     else
-      render :json => "Host not found", :status => 404
+      render :json => {result: 'Host not found'}, :status => 404
     end
   end
 
@@ -67,6 +67,18 @@ class ApiController < ApplicationController
         resp << { tagname: t.tagname, updated_at: t.updated_at }
       end
       render :json => resp
+    else
+      render :json => { error: 'Host not found' }, status: 404
+    end
+  end
+
+  def host_collect
+    params.require(:signature)
+    params.require(:data)
+
+    if host = Host.find_by_signature(params[:signature])
+      host.collect(params[:data])
+      render :json => :success
     else
       render :json => { error: 'Host not found' }, status: 404
     end

@@ -27,5 +27,6 @@ Rails.application.routes.draw do
   put     'api/host_register',  to: 'api#host_register',as: 'api_host_register'
   post    'api/host_settags',   to: 'api#host_settags', as: 'api_host_settags'
   post    'api/host_gettags',   to: 'api#host_gettags', as: 'api_host_gettags'
+  post    'api/host_collect',   to: 'api#host_collect', as: 'api_host_collect'
 
 end
