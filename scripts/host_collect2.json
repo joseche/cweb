@@ -36,7 +36,14 @@
         "user": 89.2,
         "sys": 1.2,
         "idle": 1.1,
-        "nice": 8.4
+        "nice": 8.4,
+        "iowait": 8.4,
+        "irq": 8.4,
+        "softirq": 8.4,
+        "steal": 8.4,
+        "guest": 8.4,
+        "guest_nice": 8.4,
+        "stolen": 8.4
       },
       {
         "cputid": 101321,
@@ -46,7 +53,14 @@
         "user": 89.2,
         "sys": 1.2,
         "idle": 1.1,
-        "nice": 8.4
+        "nice": 8.4,
+        "iowait": 8.4,
+        "irq": 8.4,
+        "softirq": 8.4,
+        "steal": 8.4,
+        "guest": 8.4,
+        "guest_nice": 8.4,
+        "stolen": 8.4
       },
       {
         "cputid": 101322,
@@ -56,7 +70,14 @@
         "user": 89.2,
         "sys": 1.2,
         "idle": 1.1,
-        "nice": 8.4
+        "nice": 8.4,
+        "iowait": 8.4,
+        "irq": 8.4,
+        "softirq": 8.4,
+        "steal": 8.4,
+        "guest": 8.4,
+        "guest_nice": 8.4,
+        "stolen": 8.4
       }
     ]
   }

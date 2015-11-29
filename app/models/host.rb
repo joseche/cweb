@@ -45,12 +45,25 @@ class Host < ActiveRecord::Base
         sys = c.fetch(:sys)
         idle = c.fetch(:idle)
         nice = c.fetch(:nice)
+        iowait = c.fetch(:iowait)
+        irq = c.fetch(:irq)
+        softirq = c.fetch(:softirq)
+        steal = c.fetch(:steal)
+        guest = c.fetch(:guest)
+        guest_nice = c.fetch(:guest_nice)
+        stolen = c.fetch(:stolen)
+
         sig = c.fetch(:host_sig)
         host = self
         if sig != self.signature
           host = Host.find_by_signature(sig)
         end
-        new_cputime = host.cputimes.create ({dt: dt, cpuname: cpuname, user: user, sys: sys, idle: idle, nice: nice})
+        new_cputime = host.cputimes.create ({
+                                               dt: dt, cpuname: cpuname, user: user, sys: sys,
+                                               idle: idle, nice: nice, iowait: iowait, irq: irq,
+                                               softirq: softirq, steal: steal, guest: guest,
+                                               guest_nice: guest_nice, stolen: stolen
+                                           })
         if new_cputime.valid?
           ids << cputid
         else
