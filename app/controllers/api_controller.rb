@@ -77,8 +77,8 @@ class ApiController < ApplicationController
     params.require(:data)
 
     if host = Host.find_by_signature(params[:signature])
-      host.collect(params[:data])
-      render :json => :success
+      response = host.collect(params[:data])
+      render :json => response
     else
       render :json => { error: 'Host not found' }, status: 404
     end

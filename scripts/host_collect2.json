@@ -1,0 +1,63 @@
+{
+  "signature": "2fb2463aab24e5c2f1c3286f43651faf",
+  "data": {
+    "loadavg": [
+      {
+        "loadid": 101312,
+        "host_sig": "2fb2463aab24e5c2f1c3286f43651faf",
+        "dt": "1448744038",
+        "load1": 100.2,
+        "load5": 1.2,
+        "load15": 1.1
+      },
+      {
+        "loadid": 101313,
+        "host_sig": "2fb2463aab24e5c2f1c3286f43651faf",
+        "dt": "1448744048",
+        "load1": 1.2,
+        "load5": 1.2,
+        "load15": 1.1
+      },
+      {
+        "loadid": 101314,
+        "host_sig": "2fb2463aab24e5c2f1c3286f43651faf",
+        "dt": "1448744058",
+        "load1": 1.2,
+        "load5": 1.2,
+        "load15": 1.1
+      }
+    ],
+    "cputime": [
+      {
+        "cputid": 101318,
+        "host_sig": "2fb2463aab24e5c2f1c3286f43651faf",
+        "dt": "1448744038",
+        "cpuname": "cpu0",
+        "user": 89.2,
+        "sys": 1.2,
+        "idle": 1.1,
+        "nice": 8.4
+      },
+      {
+        "cputid": 101321,
+        "host_sig": "2fb2463aab24e5c2f1c3286f43651faf",
+        "dt": "1448744038",
+        "cpuname": "cpu1",
+        "user": 89.2,
+        "sys": 1.2,
+        "idle": 1.1,
+        "nice": 8.4
+      },
+      {
+        "cputid": 101322,
+        "host_sig": "2fb2463aab24e5c2f1c3286f43651faf",
+        "dt": "1448744038",
+        "cpuname": "cpu2",
+        "user": 89.2,
+        "sys": 1.2,
+        "idle": 1.1,
+        "nice": 8.4
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dt: 2015-11-28 21:27:31
+  references: 
+  cpuname: MyString
+  user: 1.5
+  sys: 1.5
+  idle: 1.5
+  nice: 1.5
+
+two:
+  dt: 2015-11-28 21:27:31
+  references: 
+  cpuname: MyString
+  user: 1.5
+  sys: 1.5
+  idle: 1.5
+  nice: 1.5

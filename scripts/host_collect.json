@@ -1,0 +1,31 @@
+{
+  "signature": "2fb2463aab24e5c2f1c3286f43651faf",
+  "data": {
+    "loadavg": [
+      {
+        "loadid": 101312,
+        "host_sig": "2fb2463aab24e5c2f1c3286f43651faf",
+        "dt": "1448744038",
+        "load1": 1.2,
+        "load5": 1.2,
+        "load15": 1.1
+      },
+      {
+        "loadid": 101313,
+        "host_sig": "2fb2463aab24e5c2f1c3286f43651faf",
+        "dt": "1448744048",
+        "load1": 1.2,
+        "load5": 1.2,
+        "load15": 1.1
+      },
+      {
+        "loadid": 101314,
+        "host_sig": "2fb2463aab24e5c2f1c3286f43651faf",
+        "dt": "1448744058",
+        "load1": 1.2,
+        "load5": 1.2,
+        "load15": 1.1
+      }
+    ]
+  }
+}

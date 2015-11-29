@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dt: 2015-11-28 18:46:47
+  references: 
+  load1: 1.5
+  load5: 1.5
+  load15: 1.5
+
+two:
+  dt: 2015-11-28 18:46:47
+  references: 
+  load1: 1.5
+  load5: 1.5
+  load15: 1.5
