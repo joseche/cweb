@@ -50,6 +50,6 @@ Rails.application.configure do
   }
   config.action_mailer.asset_host = "http://localhost:3000"
 
-  config.x.site_name = 'Clarity'
+  config.x.site_name = 'Eyes'
 
 end

@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
     begin
       UserMailer.activation_email(self).deliver_now
     rescue
-      logger.info "#{$!}"
+      logger.info "Failed to send activation email, user: "+self.email+": #{$!}"
       UserMailer.activation_email(self).deliver_later
     end
   end
@@ -42,7 +42,12 @@ class User < ActiveRecord::Base
       self.account.name = self.email
       self.account.save
 
-      UserMailer.welcome_email(self).deliver_now
+      begin
+        UserMailer.welcome_email(self).deliver_now
+      rescue 
+        logger.info "Failed to send welcome email, user: "+self.email+": #{$!}"
+        UserMailer.welcome_email(self).deliver_now
+      end
 
       return true
     else

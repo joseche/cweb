@@ -5,10 +5,11 @@ class Host < ActiveRecord::Base
   has_many :cputimes
   validates :signature, presence: true, uniqueness: true
 
-  def collect(data)
+  def collect_loadavg(data)
     response_hash = {}
     ids = []
     errors = []
+    err_ids = []
     if _load = data.fetch(:loadavg)
       _load.each do |l|
         loadid = l.fetch(:loadid)
@@ -26,16 +27,23 @@ class Host < ActiveRecord::Base
           ids << loadid
         else
           errors << new_loadavg.errors
+          err_ids << loadid
         end
       end
-      response_hash[:loadavg]= {
+      response_hash = {
           successful_ids: ids,
-          error_msgs: errors
+          error_msgs: errors,
+          error_ids: err_ids
       }
     end
+    return response_hash
+  end
 
+  def collect_cputimes(data)
+    response_hash = {}
     ids = []
     errors=[]
+    err_ids = []
     if _cputime = data.fetch(:cputime)
       _cputime.each do |c|
         cputid = c.fetch(:cputid)
@@ -68,14 +76,15 @@ class Host < ActiveRecord::Base
           ids << cputid
         else
           errors << new_cputime.errors
+          err_ids << loadid
         end
       end
-      response_hash[:cputime]={
+      response_hash={
           successful_ids: ids,
-          error_msgs: errors
+          error_msgs: errors,
+          error_ids: err_ids
       }
     end
-
     return response_hash
   end
 

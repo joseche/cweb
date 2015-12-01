@@ -72,12 +72,24 @@ class ApiController < ApplicationController
     end
   end
 
-  def host_collect
+  def host_collect_loadavg
     params.require(:signature)
     params.require(:data)
 
     if host = Host.find_by_signature(params[:signature])
-      response = host.collect(params[:data])
+      response = host.collect_loadavg (params[:data])
+      render :json => response
+    else
+      render :json => { error: 'Host not found' }, status: 404
+    end
+  end
+
+  def host_collect_cputimes
+    params.require(:signature)
+    params.require(:data)
+
+    if host = Host.find_by_signature(params[:signature])
+      response = host.collect_cputimes (params[:data])
       render :json => response
     else
       render :json => { error: 'Host not found' }, status: 404

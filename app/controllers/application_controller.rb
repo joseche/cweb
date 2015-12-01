@@ -35,9 +35,13 @@ class ApplicationController < ActionController::Base
     if current_user
       return true
     else
-      session[:return_to]=request.fullpath
-      redirect_to login_path,
-                alert: 'Please login to continue'
+      if request.content_type == 'application/json'
+        render :json => :unauthorized, :status => 407
+      else
+        session[:return_to]=request.fullpath
+        redirect_to login_path,
+                    alert: 'Please login to continue'
+      end
       return false
     end
   end
