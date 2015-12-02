@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 7) do
+ActiveRecord::Schema.define(version: 9) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "api_token"
@@ -32,6 +32,23 @@ ActiveRecord::Schema.define(version: 7) do
 
   add_index "activations", ["user_id"], name: "index_activations_on_user_id"
 
+  create_table "cputimes", force: :cascade do |t|
+    t.datetime "dt"
+    t.integer  "host_id"
+    t.string   "cpuname"
+    t.float    "user"
+    t.float    "sys"
+    t.float    "idle"
+    t.float    "nice"
+    t.float    "iowait"
+    t.float    "irq"
+    t.float    "softirq"
+    t.float    "steal"
+    t.float    "guest"
+    t.float    "guest_nice"
+    t.float    "stolen"
+  end
+
   create_table "hosts", force: :cascade do |t|
     t.string   "fqdn"
     t.string   "signature"
@@ -43,6 +60,26 @@ ActiveRecord::Schema.define(version: 7) do
   end
 
   add_index "hosts", ["account_id"], name: "index_hosts_on_account_id"
+
+  create_table "loadavgs", force: :cascade do |t|
+    t.datetime "dt"
+    t.integer  "host_id"
+    t.float    "load1"
+    t.float    "load5"
+    t.float    "load15"
+  end
+
+  create_table "swapmems", force: :cascade do |t|
+    t.datetime "dt"
+    t.integer  "host_id"
+    t.integer  "total"
+    t.integer  "used"
+    t.float    "usedpercent"
+    t.integer  "free"
+    t.integer  "active"
+    t.integer  "sin"
+    t.integer  "sout"
+  end
 
   create_table "tags", force: :cascade do |t|
     t.string   "tagname"
@@ -61,6 +98,21 @@ ActiveRecord::Schema.define(version: 7) do
     t.boolean  "active",          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "virtualmems", force: :cascade do |t|
+    t.datetime "dt"
+    t.integer  "host_id"
+    t.integer  "total"
+    t.integer  "used"
+    t.float    "usedpercent"
+    t.integer  "free"
+    t.integer  "active"
+    t.integer  "inactive"
+    t.integer  "buffers"
+    t.integer  "cached"
+    t.integer  "wired"
+    t.integer  "shared"
   end
 
 end

@@ -28,5 +28,8 @@ Rails.application.routes.draw do
   post    'api/host_settags',   to: 'api#host_settags',         as: 'api_host_settags'
   post    'api/host_gettags',   to: 'api#host_gettags',         as: 'api_host_gettags'
   post    'api/host/loadavg',   to: 'api#host_collect_loadavg', as: 'api_host_collect_loadavg'
+  post    'api/host/cputime',   to: 'api#host_collect_cputime', as: 'api_host_collect_cputime'
+  post    'api/host/virtualmem',to: 'api#host_collect_virtualmem', as: 'api_host_collect_virtualmem'
+  post    'api/host/swapmem',   to: 'api#host_collect_swapmem', as: 'api_host_collect_swapmem'
 
 end

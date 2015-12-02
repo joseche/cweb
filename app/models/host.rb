@@ -3,6 +3,8 @@ class Host < ActiveRecord::Base
   has_many :tags
   has_many :loadavgs
   has_many :cputimes
+  has_many :virtualmems
+  has_many :swapmems
   validates :signature, presence: true, uniqueness: true
 
   def collect_loadavg(data)
@@ -76,10 +78,110 @@ class Host < ActiveRecord::Base
           ids << cputid
         else
           errors << new_cputime.errors
-          err_ids << loadid
+          err_ids << cputid
         end
       end
       response_hash={
+          successful_ids: ids,
+          error_msgs: errors,
+          error_ids: err_ids
+      }
+    end
+    return response_hash
+  end
+
+  def collect_virtualmem(data)
+    response_hash = {}
+    ids = []
+    errors = []
+    err_ids = []
+    if _vm = data.fetch(:virtualmem)
+      _vm.each do |v|
+        _vmid = v.fetch(:vmid)
+        dt = Time.at (v.fetch(:dt).to_i )
+        total = v.fetch(:total)
+        available = v.fetch(:available)
+        used = v.fetch(:used)
+        usedpercent = v.fetch(:usedpercent)
+        free = v.fetch(:free)
+        active = v.fetch(:active)
+        inactive = v.fetch(:inactive)
+        buffers = v.fetch(:buffers)
+        cached = v.fetch(:cached)
+        wired = v.fetch(:wired)
+        shared = v.fetch(:shared)
+
+        host = self
+        sig = v.fetch(:host_sig)
+        if sig != self.signature
+          host = Host.find_by_signature(sig)
+        end
+        new_vm = host.virtualmems.create ({
+                                            dt: dt,
+                                            total: total,
+                                            available: available,
+                                            used: used,
+                                            usedpercent: usedpercent,
+                                            free: free,
+                                            active: active,
+                                            inactive: inactive,
+                                            buffers: buffers,
+                                            cached: cached,
+                                            wired: wired,
+                                            shared: shared })
+        if new_vm.valid?
+          ids << _vmid
+        else
+          errors << new_vm.errors
+          err_ids << _vmid
+        end
+      end
+      response_hash = {
+          successful_ids: ids,
+          error_msgs: errors,
+          error_ids: err_ids
+      }
+    end
+    return response_hash
+  end
+
+  def collect_swapmem(data)
+    response_hash = {}
+    ids = []
+    errors = []
+    err_ids = []
+    if _sp = data.fetch(:swapmem)
+      _sp.each do |s|
+        _spid = s.fetch(:swapid)
+        dt = Time.at (s.fetch(:dt).to_i )
+        total = s.fetch(:total)
+        used = s.fetch(:used)
+        usedpercent = s.fetch(:usedpercent)
+        free = s.fetch(:free)
+        sin = s.fetch(:sin)
+        sout = s.fetch(:sout)
+
+        host = self
+        sig = s.fetch(:host_sig)
+        if sig != self.signature
+          host = Host.find_by_signature(sig)
+        end
+        new_sp = host.swapmems.create ({
+                                            dt: dt,
+                                            total: total,
+                                            used: used,
+                                            usedpercent: usedpercent,
+                                            free: free,
+                                            sin: sin,
+                                            sout: sout })
+        if new_sp.valid?
+          ids << _spid
+        else
+          errors << new_sp.errors
+          err_ids << _spid
+        end
+      end
+      response_hash = {
           successful_ids: ids,
           error_msgs: errors,
           error_ids: err_ids

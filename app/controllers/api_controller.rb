@@ -84,12 +84,36 @@ class ApiController < ApplicationController
     end
   end
 
-  def host_collect_cputimes
+  def host_collect_cputime
     params.require(:signature)
     params.require(:data)
 
     if host = Host.find_by_signature(params[:signature])
       response = host.collect_cputimes (params[:data])
+      render :json => response
+    else
+      render :json => { error: 'Host not found' }, status: 404
+    end
+  end
+
+  def host_collect_virtualmem
+    params.require(:signature)
+    params.require(:data)
+
+    if host = Host.find_by_signature(params[:signature])
+      response = host.collect_virtualmem (params[:data])
+      render :json => response
+    else
+      render :json => { error: 'Host not found' }, status: 404
+    end
+  end
+
+  def host_collect_swapmem
+    params.require(:signature)
+    params.require(:data)
+
+    if host = Host.find_by_signature(params[:signature])
+      response = host.collect_swapmem (params[:data])
       render :json => response
     else
       render :json => { error: 'Host not found' }, status: 404
