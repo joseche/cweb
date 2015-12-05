@@ -8,7 +8,6 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       session[:account_id] = Account.find_by_user_id(user.id).id
 
-      # redirect_to dashboard_url, notice: "Log in successful!"
       if session[:return_to] == nil
         redirect_to dashboard_url, notice: "Log in successful!"
       else
@@ -17,7 +16,7 @@ class SessionsController < ApplicationController
         redirect_to return_to, notice: "Log in successful!"
       end
     else
-      render "new", alert: "Invalid email or password"
+      redirect_to login_path, alert: "Invalid email or password"
     end
   end
 
