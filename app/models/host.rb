@@ -225,7 +225,8 @@ class Host < ActiveRecord::Base
                   else Time.now - 15.minutes
                 end
 
-    @data = self.loadavgs.where(["dt >= ?", timeSince.to_s(:localdb)]).order(:dt)
+    #@data = self.loadavgs.where(["dt >= ?", timeSince.to_s(:localdb)]).order(:dt => :desc).limit(100)
+    @data = self.loadavgs.where(["dt >= ?", timeSince.utc.to_s]).order(:dt => :desc)
     @data.each do |r|
       jsarray += r.to_arr
     end
