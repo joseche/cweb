@@ -48,3 +48,5 @@ end
 gem 'bootstrap-sass'
 gem 'sprockets-rails'
 gem 'rack-throttle'
+gem "chartkick"
+

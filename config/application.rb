@@ -2,6 +2,8 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 require 'rack/throttle'
+require 'csv'
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -15,7 +17,7 @@ module CWeb
       elsif request.env['HTTP_X_FORWARDED_FOR']
         request.env['HTTP_X_FORWARDED_FOR']
       else
-        request.ip.to_s
+        request.remote_ip
       end
     end
   end

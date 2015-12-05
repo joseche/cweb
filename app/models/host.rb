@@ -15,7 +15,7 @@ class Host < ActiveRecord::Base
     if _load = data.fetch(:loadavg)
       _load.each do |l|
         loadid = l.fetch(:loadid)
-        dt = Time.at (l.fetch(:dt).to_i )
+        dt = Time.at (l.fetch(:dt).to_i)
         l1 = l.fetch(:load1)
         l5 = l.fetch(:load5)
         l15 = l.fetch(:load15)
@@ -49,7 +49,7 @@ class Host < ActiveRecord::Base
     if _cputime = data.fetch(:cputime)
       _cputime.each do |c|
         cputid = c.fetch(:cputid)
-        dt = Time.at( c.fetch(:dt).to_i )
+        dt = Time.at(c.fetch(:dt).to_i)
         cpuname = c.fetch(:cpuname)
         user = c.fetch(:user)
         sys = c.fetch(:sys)
@@ -98,7 +98,7 @@ class Host < ActiveRecord::Base
     if _vm = data.fetch(:virtualmem)
       _vm.each do |v|
         _vmid = v.fetch(:vmid)
-        dt = Time.at (v.fetch(:dt).to_i )
+        dt = Time.at (v.fetch(:dt).to_i)
         total = v.fetch(:total)
         available = v.fetch(:available)
         used = v.fetch(:used)
@@ -117,18 +117,18 @@ class Host < ActiveRecord::Base
           host = Host.find_by_signature(sig)
         end
         new_vm = host.virtualmems.create ({
-                                            dt: dt,
-                                            total: total,
-                                            available: available,
-                                            used: used,
-                                            usedpercent: usedpercent,
-                                            free: free,
-                                            active: active,
-                                            inactive: inactive,
-                                            buffers: buffers,
-                                            cached: cached,
-                                            wired: wired,
-                                            shared: shared })
+                                             dt: dt,
+                                             total: total,
+                                             available: available,
+                                             used: used,
+                                             usedpercent: usedpercent,
+                                             free: free,
+                                             active: active,
+                                             inactive: inactive,
+                                             buffers: buffers,
+                                             cached: cached,
+                                             wired: wired,
+                                             shared: shared})
         if new_vm.valid?
           ids << _vmid
         else
@@ -153,7 +153,7 @@ class Host < ActiveRecord::Base
     if _sp = data.fetch(:swapmem)
       _sp.each do |s|
         _spid = s.fetch(:swapid)
-        dt = Time.at (s.fetch(:dt).to_i )
+        dt = Time.at (s.fetch(:dt).to_i)
         total = s.fetch(:total)
         used = s.fetch(:used)
         usedpercent = s.fetch(:usedpercent)
@@ -167,13 +167,13 @@ class Host < ActiveRecord::Base
           host = Host.find_by_signature(sig)
         end
         new_sp = host.swapmems.create ({
-                                            dt: dt,
-                                            total: total,
-                                            used: used,
-                                            usedpercent: usedpercent,
-                                            free: free,
-                                            sin: sin,
-                                            sout: sout })
+                                          dt: dt,
+                                          total: total,
+                                          used: used,
+                                          usedpercent: usedpercent,
+                                          free: free,
+                                          sin: sin,
+                                          sout: sout})
         if new_sp.valid?
           ids << _spid
         else
@@ -188,6 +188,48 @@ class Host < ActiveRecord::Base
       }
     end
     return response_hash
+  end
+
+  def get_loadavg(range)
+    # get all records in `period`
+    csv = "host,timestamp,load1,load5,load15\n"
+    timeSince = case range
+                  when '15m' then Time.now - 15.minutes
+                  when '30m' then Time.now - 30.minutes
+                  when '1h' then Time.now - 1.hour
+                  when '2h' then Time.now - 2.hours
+                  when '6h' then Time.now - 6.hours
+                  when '12h' then Time.now - 12.hours
+                  else Time.now - 15.minutes
+                end
+
+    @data = self.loadavgs.where(["dt >= ?", timeSince.to_s(:localdb)]).order(:dt)
+    @data.each do |r|
+      csv += r.to_csv
+    end
+    return csv
+  end
+
+
+  def get_loadavg_array(range)
+    # get all records in `period`
+    #jsarray = "[['host','timestamp','load1','load5','load15'],\n"
+    jsarray = "[\n"
+    timeSince = case range
+                  when '15m' then Time.now - 15.minutes
+                  when '30m' then Time.now - 30.minutes
+                  when '1h' then Time.now - 1.hour
+                  when '2h' then Time.now - 2.hours
+                  when '6h' then Time.now - 6.hours
+                  when '12h' then Time.now - 12.hours
+                  else Time.now - 15.minutes
+                end
+
+    @data = self.loadavgs.where(["dt >= ?", timeSince.to_s(:localdb)]).order(:dt)
+    @data.each do |r|
+      jsarray += r.to_arr
+    end
+    return jsarray +"]"
   end
 
 end

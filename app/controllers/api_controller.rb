@@ -21,10 +21,10 @@ class ApiController < ApplicationController
     params.require(:signature)
     params.require(:internalip)
 
-    args = { :fqdn => params[:fqdn],
-             :signature => params[:signature],
-             :internalip => params[:internalip],
-             :clientip => request.ip.to_s
+    args = {:fqdn => params[:fqdn],
+            :signature => params[:signature],
+            :internalip => params[:internalip],
+            :clientip => request.ip.to_s
     }
     host = current_account.hosts.create (args)
     if host.save
@@ -42,7 +42,7 @@ class ApiController < ApplicationController
     params.require(:tags)
     params.require(:signature)
 
-    if host = Host.find_by_signature(params[:signature])
+    if host = current_account.hosts.find_by_signature(params[:signature])
       if host.account == current_account
 
         host.tags.where(usercreated: false).destroy_all
@@ -50,7 +50,7 @@ class ApiController < ApplicationController
         tags.each do |t|
           host.tags.create(:tagname => t)
         end
-        render :json => {result: 'success' }
+        render :json => {result: 'success'}
       else
         render :json => {result: 'Permission denied'}, :status => 403
       end
@@ -61,14 +61,14 @@ class ApiController < ApplicationController
 
   def host_gettags
     params.require(:signature)
-    if host = Host.find_by_signature(params[:signature])
+    if host = current_account.hosts.find_by_signature(params[:signature])
       resp = []
       host.tags.each do |t|
-        resp << { tagname: t.tagname, updated_at: t.updated_at }
+        resp << {tagname: t.tagname, updated_at: t.updated_at}
       end
       render :json => resp
     else
-      render :json => { error: 'Host not found' }, status: 404
+      render :json => {error: 'Host not found'}, status: 404
     end
   end
 
@@ -76,11 +76,11 @@ class ApiController < ApplicationController
     params.require(:signature)
     params.require(:data)
 
-    if host = Host.find_by_signature(params[:signature])
+    if host = current_account.hosts.find_by_signature(params[:signature])
       response = host.collect_loadavg (params[:data])
       render :json => response
     else
-      render :json => { error: 'Host not found' }, status: 404
+      render :json => {error: 'Host not found'}, status: 404
     end
   end
 
@@ -88,11 +88,11 @@ class ApiController < ApplicationController
     params.require(:signature)
     params.require(:data)
 
-    if host = Host.find_by_signature(params[:signature])
+    if host = current_account.hosts.find_by_signature(params[:signature])
       response = host.collect_cputimes (params[:data])
       render :json => response
     else
-      render :json => { error: 'Host not found' }, status: 404
+      render :json => {error: 'Host not found'}, status: 404
     end
   end
 
@@ -100,11 +100,11 @@ class ApiController < ApplicationController
     params.require(:signature)
     params.require(:data)
 
-    if host = Host.find_by_signature(params[:signature])
+    if host = current_account.hosts.find_by_signature(params[:signature])
       response = host.collect_virtualmem (params[:data])
       render :json => response
     else
-      render :json => { error: 'Host not found' }, status: 404
+      render :json => {error: 'Host not found'}, status: 404
     end
   end
 
@@ -112,11 +112,29 @@ class ApiController < ApplicationController
     params.require(:signature)
     params.require(:data)
 
-    if host = Host.find_by_signature(params[:signature])
+    if host = current_account.hosts.find_by_signature(params[:signature])
       response = host.collect_swapmem (params[:data])
       render :json => response
     else
-      render :json => { error: 'Host not found' }, status: 404
+      render :json => {error: 'Host not found'}, status: 404
+    end
+  end
+
+  def host_get_loadavg
+    if host = current_account.hosts.find_by_signature(params[:hostsig])
+      respond_to do |format|
+        format.csv {
+          response = host.get_loadavg (params[:range])
+          send_data response, :filename => "loadavg.csv"
+        }
+        format.html {
+          @host = host
+          @response = host.get_loadavg_array (params[:range])
+          render 'api/host_loadavg'
+        }
+      end
+    else
+      render :json => {error: 'Host not found'}, status: 404
     end
   end
 

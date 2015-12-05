@@ -1,0 +1,36 @@
+<%= javascript_include_tag 'http://www.google.com/jsapi', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'https://jquery-csv.googlecode.com/files/jquery.csv-0.71.js',
+                           'data-turbolinks-track' => true %>
+<script>
+  google.load("visualization", "1.1", {packages: ['annotationchart']});
+  google.setOnLoadCallback(drawChart);
+
+  var jsarr = <%= raw @response %>;
+
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('datetime', 'Date');
+    data.addColumn('number', 'Load 1');
+    data.addColumn('number', 'Load 5');
+    data.addColumn('number', 'Load 15');
+    data.addRows(jsarr);
+    var options = {
+      displayAnnotations: true,
+      displayZoomButtons: false,
+      fill: 10,
+      thickness: 1
+    };
+
+    var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+
+</script>
+<div class="panel panel-info">
+  <div class="panel-heading"><%= @host.fqdn %> </div>
+  <div class="panel-body">
+    <div id="chart_div" style="width: 90%; height: 200px;">
+    </div>
+  </div>
+  <div class="panel-footer">© 2015 <%= Rails.configuration.x.site_name %>, Inc.</div>
+</div>
